@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BuxxCo — Japan Essentials Collection</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0f1c;
+    --surface: #111827;
+    --card: #1a2235;
+    --border: rgba(220, 60, 60, 0.15);
+    --red: #dc3c3c;
+    --red-soft: rgba(220, 60, 60, 0.08);
+    --gold: #d4a853;
+    --text: #e2e8f0;
+    --dim: #94a3b8;
+    --white: #f8fafc;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+  .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+  /* HEADER */
+  header {
+    padding: 60px 0 40px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+  header .badge {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--red);
+    border: 1px solid var(--border);
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 24px;
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: 400;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  header p {
+    color: var(--dim);
+    max-width: 640px;
+    margin: 0 auto;
+    font-size: 17px;
+  }
+  .stat-row {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 32px;
+  }
+  .stat-item { text-align: center; }
+  .stat-item h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    color: var(--gold);
+  }
+  .stat-item p {
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--dim);
+  }
+
+  /* INTRO */
+  .intro {
+    padding: 48px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .intro p { color: var(--dim); margin-bottom: 16px; max-width: 700px; }
+  .intro p:last-child { margin-bottom: 0; }
+
+  /* SYSTEM SECTION */
+  .system-section {
+    padding: 48px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .system-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .system-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 400;
+    color: var(--white);
+  }
+  .system-header .count {
+    font-size: 13px;
+    color: var(--dim);
+    letter-spacing: 1px;
+  }
+
+  /* GAME ENTRY */
+  .game {
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,0.04);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin-bottom: 10px;
+    transition: border-color 0.2s;
+  }
+  .game:hover { border-color: rgba(220, 60, 60, 0.25); }
+  .game-title {
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+  .game-file {
+    font-size: 12px;
+    color: var(--dim);
+    opacity: 0.6;
+    font-family: monospace;
+    margin-bottom: 8px;
+  }
+  .game-reason {
+    font-size: 15px;
+    color: var(--dim);
+    line-height: 1.6;
+  }
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-right: 6px;
+    margin-top: 8px;
+  }
+  .tag-fan { background: rgba(99, 140, 255, 0.15); color: #638cff; }
+  .tag-playable { background: rgba(57, 255, 20, 0.1); color: #5be85b; }
+  .tag-legendary { background: rgba(212, 168, 83, 0.15); color: var(--gold); }
+  .tag-shmup { background: rgba(220, 60, 60, 0.12); color: var(--red); }
+  .tag-series { background: rgba(168, 85, 247, 0.12); color: #c084fc; }
+
+  footer {
+    padding: 40px 0;
+    text-align: center;
+    font-size: 13px;
+    color: var(--dim);
+    opacity: 0.5;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <div class="badge">Curated Import Collection</div>
+  <h1>Japan Essentials</h1>
+  <p>185 titles that never left Japan — and deserved to. Hand-selected from over 5,000 Japan-exclusive ROMs. Every game on this list earned its place through critical acclaim, historical significance, or the simple fact that it's too good to leave behind.</p>
+  <div class="stat-row">
+    <div class="stat-item"><h3>185</h3><p>Titles kept</p></div>
+    <div class="stat-item"><h3>5,000+</h3><p>Titles cut</p></div>
+    <div class="stat-item"><h3>15</h3><p>Systems</p></div>
+  </div>
+</header>
+
+<div class="intro">
+  <p>The BuxxCo library follows strict 1G1R curation: one game, one ROM, no duplicates. When a game received an English-language release, the localized version takes priority. These 185 titles are the exceptions — games that were never officially translated but are considered essential to the history of their respective platforms.</p>
+  <p>Many have acclaimed fan translations. Others are shmups, fighters, and action games that need no translation at all. A few are simply legendary — games that defined genres or studios before those studios found a Western audience.</p>
+</div>
+
+<!-- ═══════════ NES / FAMICOM ═══════════ -->
+<div class="system-section">
+  <div class="system-header">
+    <h2>NES / Famicom</h2>
+    <span class="count">33 titles</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Sweet Home</div>
+    <div class="game-reason">Capcom survival horror RPG from 1989. Directly inspired the creation of Resident Evil. One of the most important horror games ever made, years before the genre had a name.</div>
+    <span class="tag tag-fan">Fan Translation</span><span class="tag tag-legendary">Legendary</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Crisis Force</div>
+    <div class="game-reason">Late-era Konami vertical shmup that pushes the Famicom hardware to its absolute limit. Widely considered one of the top 3 shooters on the system.</div>
+    <span class="tag tag-shmup">Shmup</span><span class="tag tag-playable">No Japanese Needed</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Summer Carnival '92 — Recca</div>
+    <div class="game-reason">A shmup so fast and technically advanced that people didn't believe it was running on NES hardware. Built for a competition, now a benchmark for the console's capabilities.</div>
+    <span class="tag tag-shmup">Shmup</span><span class="tag tag-playable">No Japanese Needed</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Joy Mech Fight</div>
+    <div class="game-reason">Nintendo's own fighting game for the Famicom, featuring clever segmented-body animation to achieve fluid movement on limited hardware. A hidden gem from Nintendo R&D1.</div>
+    <span class="tag tag-playable">No Japanese Needed</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Moon Crystal</div>
+    <div class="game-reason">Platformer with rotoscoped animation that rivals anything on the system. Beautifully animated, tight controls, almost entirely unknown outside import collectors.</div>
+    <span class="tag tag-playable">No Japanese Needed</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Holy Diver</div>
+    <div class="game-reason">Castlevania-caliber action platformer with a heavy metal aesthetic. Difficult, atmospheric, and one of the most sought-after Famicom cartridges among collectors.</div>
+    <span class="tag tag-playable">No Japanese Needed</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Cocoron</div>
+    <div class="game-reason">Build-your-own-character platformer where you mix and match heads, bodies, and weapons. Creative, charming, and mechanically ahead of its time.</div>
+    <span class="tag tag-playable">No Japanese Needed</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Getsu Fuuma Den</div>
+    <div class="game-reason">Konami action-adventure that blends side-scrolling combat with first-person dungeon crawling. So beloved in Japan it received a modern sequel in 2022.</div>
+    <span class="tag tag-playable">No Japanese Needed</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Splatterhouse: Wanpaku Graffiti</div>
+    <div class="game-reason">Chibi-styled horror platformer and prequel to the Splatterhouse series. Lighter in tone but excellent in execution. A love letter to horror cinema.</div>
+    <span class="tag tag-playable">No Japanese Needed</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Lagrange Point</div>
+    <div class="game-reason">Konami sci-fi RPG featuring the VRC7 expansion chip — the only Famicom game to use FM synthesis audio. The soundtrack alone justifies its preservation.</div>
+    <span class="tag tag-fan">Fan Translation</span><span class="tag tag-legendary">Legendary</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Bio Miracle Bokutte Upa</div>
+    <div class="game-reason">Konami platformer where a baby inflates enemies with a rattle. Charming, inventive, and mechanically polished — pure Konami craftsmanship.</div>
+    <span class="tag tag-playable">No Japanese Needed</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Akumajou Special — Boku Dracula-kun</div>
+    <div class="game-reason">Konami's lighthearted Castlevania spinoff. Kid Dracula fights through colorful stages with humor and tight platforming. The tonal opposite of its parent series.</div>
+    <span class="tag tag-playable">No Japanese Needed</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Esper Dream 2</div>
+    <div class="game-reason">Konami action RPG with real-time combat set inside the world of books. Atmospheric and unique — a hidden gem even by Famicom standards.</div>
+    <span class="tag tag-fan">Fan Translation</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Captain Tsubasa II — Super Striker</div>
+    <div class="game-reason">Cinematic soccer RPG. Matches play out through dramatic cut-in animations and stat-based decisions. A genre unto itself in Japan.</div>
+    <span class="tag tag-playable">No Japanese Needed</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">King of Kings</div>
+    <div class="game-reason">Namco's turn-based strategy game — their answer to Fire Emblem. Deep tactical gameplay on a system not known for the genre.</div>
+    <span class="tag tag-fan">Fan Translation</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Fire Emblem — Ankoku Ryuu to Hikari no Tsurugi + Gaiden</div>
+    <div class="game-reason">The original Fire Emblem and its sequel. Where the entire tactical RPG dynasty began. Both received remakes, but the originals are historically essential.</div>
+    <span class="tag tag-fan">Fan Translation</span><span class="tag tag-legendary">Legendary</span><span class="tag tag-series">Series</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Ganbare Goemon series (4 titles)</div>
+    <div class="game-reason">Konami's long-running action-adventure series starring a mystical Japanese thief. Colorful, creative, and wildly popular in Japan. The entire Famicom run stayed exclusive.</div>
+    <span class="tag tag-series">Series</span><span class="tag tag-playable">No Japanese Needed</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Kunio-kun / Nekketsu series (5 titles)</div>
+    <div class="game-reason">The River City Ransom extended universe — soccer, dodgeball, hockey, fighting, and street brawling. Technos at their chaotic best. Most are fully playable without Japanese.</div>
+    <span class="tag tag-series">Series</span><span class="tag tag-playable">No Japanese Needed</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Hokuto no Ken series (3 titles)</div>
+    <div class="game-reason">Fist of the North Star action games. Variable quality but culturally significant — one of the biggest anime/manga franchises ever, represented across multiple Famicom entries.</div>
+    <span class="tag tag-series">Series</span><span class="tag tag-playable">No Japanese Needed</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Magical Taruruuto-kun (2 titles) + Napoleon Senki + Dai-2-ji Super Robot Taisen</div>
+    <div class="game-reason">Platformers, strategy, and mech tactics rounding out the collection. Each represents a franchise or genre that defined the Famicom's late era.</div>
+    <span class="tag tag-series">Series</span>
+  </div>
+</div>
+
+<!-- ═══════════ SNES ═══════════ -->
+<div class="system-section">
+  <div class="system-header">
+    <h2>Super Nintendo / Super Famicom</h2>
+    <span class="count">49 titles</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Fire Emblem: Seisen no Keifu (Genealogy of the Holy War)</div>
+    <div class="game-reason">Widely considered one of the greatest Fire Emblem entries ever made. Sprawling multi-generational story, massive maps, and the marriage/inheritance system that influenced every entry after it.</div>
+    <span class="tag tag-fan">Fan Translation</span><span class="tag tag-legendary">Legendary</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Fire Emblem: Thracia 776</div>
+    <div class="game-reason">The most mechanically demanding Fire Emblem. A mid-quel to Genealogy with punishing difficulty and deep tactical systems. A cult classic among strategy purists.</div>
+    <span class="tag tag-fan">Fan Translation</span><span class="tag tag-legendary">Legendary</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Fire Emblem: Monshou no Nazo</div>
+    <div class="game-reason">Remake of the original Fire Emblem plus an entirely new second campaign. The game that cemented Fire Emblem as a flagship franchise in Japan.</div>
+    <span class="tag tag-fan">Fan Translation</span><span class="tag tag-series">Series</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Live A Live</div>
+    <div class="game-reason">Square's anthology RPG spanning cavemen to robots to mecha to the Wild West. Seven unique scenarios, seven genres, one masterpiece. So good it got an official HD-2D remake 28 years later.</div>
+    <span class="tag tag-fan">Fan Translation</span><span class="tag tag-legendary">Legendary</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Rudra no Hihou (Treasure of the Rudras)</div>
+    <div class="game-reason">Square's final SNES RPG. Features a magic system where you literally type words to create spells. Inventive, beautiful, and tragically overlooked.</div>
+    <span class="tag tag-fan">Fan Translation</span><span class="tag tag-legendary">Legendary</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Bahamut Lagoon</div>
+    <div class="game-reason">Square tactical RPG with dragon-raising mechanics. Gorgeous sprite work, strategic depth, and a story that takes unexpected turns. One of Square's best-kept secrets.</div>
+    <span class="tag tag-fan">Fan Translation</span><span class="tag tag-legendary">Legendary</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Star Ocean</div>
+    <div class="game-reason">tri-Ace's debut RPG. Real-time combat, voice acting via a special compression chip, and a sci-fi story that launched one of the longest-running JRPG franchises.</div>
+    <span class="tag tag-fan">Fan Translation</span><span class="tag tag-legendary">Legendary</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Tales of Phantasia</div>
+    <div class="game-reason">Namco's action RPG masterpiece with a real-time Linear Motion Battle System, a vocal opening theme on a cartridge, and the origin of the Tales franchise.</div>
+    <span class="tag tag-fan">Fan Translation</span><span class="tag tag-legendary">Legendary</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Shin Megami Tensei I, II, and if...</div>
+    <div class="game-reason">The dark RPG trilogy that spawned Persona, Digital Devil Saga, and an entire Atlus empire. Post-apocalyptic Tokyo, demon negotiation, and moral choices decades before they were trendy.</div>
+    <span class="tag tag-fan">Fan Translation</span><span class="tag tag-legendary">Legendary</span><span class="tag tag-series">Series</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Front Mission + Gun Hazard</div>
+    <div class="game-reason">Square's mech tactical RPG and its side-scrolling action spinoff. Front Mission defined the mech strategy genre. Gun Hazard is a hidden action classic.</div>
+    <span class="tag tag-fan">Fan Translation</span><span class="tag tag-series">Series</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Dragon Quest V & VI</div>
+    <div class="game-reason">Two of the greatest JRPGs on any platform. DQV pioneered monster recruitment. DQVI refined the job system. Both later received English DS ports, but the SNES originals are definitive.</div>
+    <span class="tag tag-fan">Fan Translation</span><span class="tag tag-legendary">Legendary</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Tengai Makyou Zero</div>
+    <div class="game-reason">Hudson's massive RPG with a real-time clock chip that changes events by season and time of day. A technical marvel and one of the most ambitious SNES RPGs ever attempted.</div>
+    <span class="tag tag-fan">Fan Translation</span><span class="tag tag-legendary">Legendary</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Treasure Hunter G</div>
+    <div class="game-reason">Sting's tactical RPG published by Square. Grid-based combat with an action point system. One of the final SNES releases, polished and overlooked.</div>
+    <span class="tag tag-fan">Fan Translation</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Clock Tower</div>
+    <div class="game-reason">Point-and-click survival horror. You're a girl being chased through a mansion by a child with giant scissors. Terrifying on hardware that shouldn't be able to terrify anyone.</div>
+    <span class="tag tag-fan">Fan Translation</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Rendering Ranger R2</div>
+    <div class="game-reason">Created by Manfred Trenz (Turrican). A shmup/platformer hybrid with technical effects that defy the SNES. Extremely rare — one of the most expensive cartridges in existence.</div>
+    <span class="tag tag-shmup">Shmup</span><span class="tag tag-playable">No Japanese Needed</span><span class="tag tag-legendary">Legendary</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Magical Pop'n</div>
+    <div class="game-reason">Action-platformer with tight combat and Metroidvania elements. Excellent level design, charming art, and one of the rarest SNES games in any region.</div>
+    <span class="tag tag-playable">No Japanese Needed</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">DoReMi Fantasy — Milon no Dokidoki Daibouken</div>
+    <div class="game-reason">Sequel to Milon's Secret Castle, but a completely different game — a gorgeous, joyful platformer. Everything the original should have been.</div>
+    <span class="tag tag-playable">No Japanese Needed</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Marvelous — Mouhitotsu no Takara-jima</div>
+    <div class="game-reason">Directed by Eiji Aonuma before he took over the Zelda franchise. A Zelda-like adventure with three playable characters and puzzle-driven exploration.</div>
+    <span class="tag tag-fan">Fan Translation</span><span class="tag tag-legendary">Legendary</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Sutte Hakkun</div>
+    <div class="game-reason">Nintendo-developed puzzle platformer originally distributed via Satellaview. Brilliant mechanics, clean design, and the kind of quiet genius Nintendo is known for.</div>
+    <span class="tag tag-playable">No Japanese Needed</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Super Fire Pro Wrestling X Premium</div>
+    <div class="game-reason">The deepest wrestling game on the SNES. Massive roster, intricate grappling mechanics, and a dark story mode written by Suda51 (Killer7, No More Heroes) in his first credited game writing role.</div>
+    <span class="tag tag-playable">No Japanese Needed</span><span class="tag tag-legendary">Legendary</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Ganbare Goemon 2, 3, and Kirakira Douchuu</div>
+    <div class="game-reason">Konami's flagship action-adventure series in its SNES prime. Co-op play, giant robot battles, and some of the most inventive level design on the console.</div>
+    <span class="tag tag-series">Series</span><span class="tag tag-playable">No Japanese Needed</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Gokujou Parodius + Jikkyou Oshaberi Parodius</div>
+    <div class="game-reason">Konami's Gradius parody series. Mechanically excellent shmups with absurdist humor. Penguins, cats, and ballerinas instead of spaceships.</div>
+    <span class="tag tag-shmup">Shmup</span><span class="tag tag-playable">No Japanese Needed</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Romancing SaGa 3, Captain Tsubasa III–V, Nekketsu series, Hebereke series, Hokuto no Ken 5–7, Super Robot Taisen, and others</div>
+    <div class="game-reason">The remaining titles span sports RPGs, mech tactics, open-ended Square RPGs, and long-running Japanese franchise entries — each significant to the SNES library's full picture.</div>
+    <span class="tag tag-series">Series</span>
+  </div>
+</div>
+
+<!-- ═══════════ GBA ═══════════ -->
+<div class="system-section">
+  <div class="system-header">
+    <h2>Game Boy Advance</h2>
+    <span class="count">31 titles</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Mother 3</div>
+    <div class="game-reason">The sequel to EarthBound. Twelve years in development. A story about family, loss, and the corruption of innocence that has made grown adults weep openly. The most requested localization in Nintendo history. It never came. The fan translation is flawless.</div>
+    <span class="tag tag-fan">Fan Translation</span><span class="tag tag-legendary">Legendary</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Rhythm Tengoku</div>
+    <div class="game-reason">The original Rhythm Heaven. Pure rhythm gameplay with no text dependency. Created the template for one of Nintendo's most beloved series. Playable by anyone in any language.</div>
+    <span class="tag tag-playable">No Japanese Needed</span><span class="tag tag-legendary">Legendary</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Fire Emblem: Fuuin no Tsurugi (Binding Blade)</div>
+    <div class="game-reason">Roy's game — the one that introduced Fire Emblem to the West through Smash Bros. before the series itself crossed over. The prequel to the first English Fire Emblem.</div>
+    <span class="tag tag-fan">Fan Translation</span><span class="tag tag-legendary">Legendary</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Tomato Adventure</div>
+    <div class="game-reason">Made by AlphaDream, the studio behind Mario &amp; Luigi. A quirky RPG with minigame-based combat and an off-kilter sense of humor. The DNA of their later masterpieces is all here.</div>
+    <span class="tag tag-fan">Fan Translation</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Kururin Paradise</div>
+    <div class="game-reason">Sequel to Kuru Kuru Kururin. Navigate a rotating stick through increasingly devious mazes. Pure puzzle-action with zero language barrier.</div>
+    <span class="tag tag-playable">No Japanese Needed</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Magical Vacation</div>
+    <div class="game-reason">Brownie Brown RPG and predecessor to Magical Starsign. A whimsical, elemental-magic-driven adventure with deep party mechanics.</div>
+    <span class="tag tag-fan">Fan Translation</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Napoleon</div>
+    <div class="game-reason">Turn-based Napoleonic strategy game with surprising depth. A genre rarity on the GBA.</div>
+    <span class="tag tag-playable">No Japanese Needed</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Shin Megami Tensei I &amp; II (GBA ports) + Devil Children series</div>
+    <div class="game-reason">Enhanced portable versions of the SMT classics plus the Pokemon-influenced Devil Children spinoffs. The Atlus RPG pipeline, miniaturized.</div>
+    <span class="tag tag-fan">Fan Translation</span><span class="tag tag-series">Series</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Super Robot Taisen A, D, J, R</div>
+    <div class="game-reason">Tactical RPGs featuring crossovers between Gundam, Evangelion, Mazinger, and dozens of mecha anime. Playable through menus once you learn the basics. A massive franchise that never left Japan.</div>
+    <span class="tag tag-series">Series</span><span class="tag tag-playable">No Japanese Needed</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Kunio-kun Nekketsu Collection 1–3 + Telefang 2 + others</div>
+    <div class="game-reason">Compilations of the beloved Kunio-kun beat-em-up/sports games, plus monster-collecting RPGs and Goemon entries rounding out the GBA import essentials.</div>
+    <span class="tag tag-series">Series</span>
+  </div>
+</div>
+
+<!-- ═══════════ GB/GBC ═══════════ -->
+<div class="system-section">
+  <div class="system-header">
+    <h2>Game Boy / Game Boy Color</h2>
+    <span class="count">33 titles</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Kaeru no Tame ni Kane wa Naru (For the Frog the Bell Tolls)</div>
+    <div class="game-reason">Nintendo action-adventure built on the Link's Awakening engine. The Prince of Sable (playable via Smash Bros. assist trophy) originated here. Charming, funny, and mechanically inventive.</div>
+    <span class="tag tag-fan">Fan Translation</span><span class="tag tag-legendary">Legendary</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Trade &amp; Battle: Card Hero</div>
+    <div class="game-reason">Intelligent Systems card battle game — the studio behind Fire Emblem and Advance Wars applied their strategic design to a card game. Deep and addictive.</div>
+    <span class="tag tag-fan">Fan Translation</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Magical Chase GB</div>
+    <div class="game-reason">Portable version of the legendary PC Engine shmup. The original cartridge sells for thousands. This version preserves the gameplay on humble hardware.</div>
+    <span class="tag tag-shmup">Shmup</span><span class="tag tag-playable">No Japanese Needed</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Star Ocean: Blue Sphere</div>
+    <div class="game-reason">Direct sequel to Star Ocean: The Second Story, exclusive to Game Boy Color. Action RPG with crafting and a full party system on a handheld.</div>
+    <span class="tag tag-fan">Fan Translation</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Tales of Phantasia: Narikiri Dungeon</div>
+    <div class="game-reason">Spinoff of the SNES classic. A dungeon-crawling RPG with a costume-changing class system. More Tales of Phantasia for those who can't get enough.</div>
+    <span class="tag tag-fan">Fan Translation</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Keitai Denjuu Telefang (Power &amp; Speed)</div>
+    <div class="game-reason">Monster-collecting RPG often pirated as "Pokemon Diamond" — but it's its own thing entirely. Phone-based monster summoning with branching paths.</div>
+    <span class="tag tag-fan">Fan Translation</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">SMT Devil Children series + Last Bible series + Nekketsu series + Goemon + others</div>
+    <div class="game-reason">Demon collecting, dodgeball, and Goemon adventures filling out the portable import essentials. Each title represents a franchise at its handheld peak.</div>
+    <span class="tag tag-series">Series</span>
+  </div>
+</div>
+
+<!-- ═══════════ N64 ═══════════ -->
+<div class="system-section">
+  <div class="system-header">
+    <h2>Nintendo 64</h2>
+    <span class="count">7 titles</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Tsumi to Batsu (Sin and Punishment)</div>
+    <div class="game-reason">Treasure's rail shooter masterpiece. One of the greatest action games on the N64 — possibly one of the greatest action games ever. Minimal Japanese needed. Later released on Wii Virtual Console, but the N64 original is the definitive version.</div>
+    <span class="tag tag-playable">No Japanese Needed</span><span class="tag tag-legendary">Legendary</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Custom Robo + Custom Robo V2</div>
+    <div class="game-reason">Arena-based robot battlers with deep customization. Build your mech, pick your weapons, fight in enclosed arenas. The series that eventually spawned a GameCube entry in the West.</div>
+    <span class="tag tag-playable">No Japanese Needed</span><span class="tag tag-series">Series</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Doubutsu no Mori (Animal Forest)</div>
+    <div class="game-reason">The original Animal Crossing. Before the GameCube, before the DS phenomenon, before New Horizons consumed the world — it started here, on a Japanese N64 cartridge with a real-time clock.</div>
+    <span class="tag tag-legendary">Legendary</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Densha de Go! 64</div>
+    <div class="game-reason">Train simulation. Drive Japanese rail lines on schedule. A cultural institution in Japan and a uniquely meditative gaming experience.</div>
+    <span class="tag tag-playable">No Japanese Needed</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Wonder Project J2 + Super Robot Taisen 64</div>
+    <div class="game-reason">A life simulation about raising an android girl, and a massive mech tactics crossover. Two very different games, both significant to the N64's Japanese identity.</div>
+    <span class="tag tag-series">Series</span>
+  </div>
+</div>
+
+<!-- ═══════════ GENESIS ═══════════ -->
+<div class="system-section">
+  <div class="system-header">
+    <h2>Sega Genesis / Mega Drive</h2>
+    <span class="count">6 titles</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Pulseman</div>
+    <div class="game-reason">Made by Game Freak — the Pokemon studio — during the Genesis era. A lightning-fast action platformer with incredible animation and a character that deserved to become a franchise.</div>
+    <span class="tag tag-playable">No Japanese Needed</span><span class="tag tag-legendary">Legendary</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Eliminate Down</div>
+    <div class="game-reason">Premium side-scrolling shmup with three-directional fire. Technically impressive, brutally difficult, and one of the most expensive Genesis cartridges in existence.</div>
+    <span class="tag tag-shmup">Shmup</span><span class="tag tag-playable">No Japanese Needed</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Panorama Cotton</div>
+    <div class="game-reason">Into-the-screen shmup that pushes the Genesis into pseudo-3D territory. A technical showcase that has to be seen to be believed on 16-bit hardware.</div>
+    <span class="tag tag-shmup">Shmup</span><span class="tag tag-playable">No Japanese Needed</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Dahna: Megami Tanjou</div>
+    <div class="game-reason">Cinematic action platformer with large sprites and dramatic presentation. An ambitious showcase for the Mega Drive's capabilities.</div>
+    <span class="tag tag-playable">No Japanese Needed</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Magical Taruruuto-kun + Nekketsu Koukou Dodgeball-bu Soccer</div>
+    <div class="game-reason">An anime-based platformer and an arcade sports classic. Each brings a distinctly Japanese flavor to the Genesis library.</div>
+    <span class="tag tag-playable">No Japanese Needed</span>
+  </div>
+</div>
+
+<!-- ═══════════ OTHER SYSTEMS ═══════════ -->
+<div class="system-section">
+  <div class="system-header">
+    <h2>Game Gear, PC Engine, WonderSwan, Satellaview &amp; Others</h2>
+    <span class="count">55 titles across 9 systems</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Game Gear — GG Aleste series, Gunstar Heroes, Megami Tensei Gaiden, Magic Knight Rayearth, Coca-Cola Kid</div>
+    <div class="game-reason">Compile shmups, a portable Treasure classic, Atlus demon-hunting, anime action RPGs, and the best advergame ever made. The import essentials for Sega's handheld.</div>
+    <span class="tag tag-shmup">Shmup</span><span class="tag tag-playable">No Japanese Needed</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">PC Engine — Soldier Blade, Parodius Da!, Nekketsu Dodgeball/Soccer</div>
+    <div class="game-reason">Hudson's premier shmup, Konami's Gradius parody, and Technos sports chaos. The PC Engine was a shmup powerhouse, and these are its Japanese essentials.</div>
+    <span class="tag tag-shmup">Shmup</span><span class="tag tag-playable">No Japanese Needed</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">WonderSwan / WonderSwan Color — Super Robot Taisen Compact series, Clock Tower, Densha de Go!, Front Mission</div>
+    <div class="game-reason">Bandai's handheld never left Japan, but it hosted excellent portable entries of major franchises. Mech tactics, survival horror, and train simulation on a pocketable device.</div>
+    <span class="tag tag-series">Series</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">Satellaview — BS Fire Emblem: Akaneia Senki, Panel de Pon, Sutte Hakkun variants, BS Marvelous</div>
+    <div class="game-reason">Broadcast-exclusive SNES content that was only available via satellite in 1990s Japan. Fire Emblem side stories, puzzle games, and adventures that were never sold at retail anywhere. Some of the rarest playable Nintendo content in existence.</div>
+    <span class="tag tag-legendary">Legendary</span>
+  </div>
+
+  <div class="game">
+    <div class="game-title">FDS — Akumajou Dracula, Bio Miracle Bokutte Upa, Esper Dream</div>
+    <div class="game-reason">Famicom Disk System originals — the first Castlevania in its original Japanese disk format, plus Konami gems that began on this hardware.</div>
+    <span class="tag tag-legendary">Legendary</span>
+  </div>
+</div>
+
+<footer>
+  <p>BuxxCo Entertainment System — Japan Essentials Collection</p>
+  <p>185 titles curated from 5,000+ candidates. Every game verified. Every cut justified. Every keeper earned.</p>
+</footer>
+
+</div>
+</body>
+</html>
