@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BuxxCo Entertainment System</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --neon-pink: #f52789;
+    --neon-cyan: #42b7ed;
+    --neon-purple: #d80afc;
+    --neon-green: #39ff14;
+    --neon-yellow: #f0e84d;
+    --neon-orange: #ff8500;
+    --dark-bg: #0a0a1a;
+    --darker-bg: #050510;
+    --card-bg: rgba(15, 10, 40, 0.85);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--dark-bg);
+    color: #e0e0ff;
+    font-family: 'VT323', monospace;
+    font-size: 20px;
+    overflow-x: hidden;
+  }
+
+  /* ─── SYNTHWAVE GRID BACKGROUND ─── */
+  .grid-bg {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: -2;
+    background:
+      linear-gradient(180deg, var(--dark-bg) 0%, #1a0030 40%, #2d0050 70%, var(--neon-pink) 150%);
+  }
+
+  .grid-floor {
+    position: fixed;
+    bottom: 0; left: -50%;
+    width: 200%; height: 55%;
+    z-index: -1;
+    background:
+      repeating-linear-gradient(90deg, transparent, transparent 98px, rgba(66, 183, 237, 0.15) 98px, rgba(66, 183, 237, 0.15) 100px),
+      repeating-linear-gradient(0deg, transparent, transparent 48px, rgba(216, 10, 252, 0.12) 48px, rgba(216, 10, 252, 0.12) 50px);
+    transform: perspective(400px) rotateX(55deg);
+    transform-origin: center top;
+    animation: gridScroll 4s linear infinite;
+  }
+
+  @keyframes gridScroll {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 50px; }
+  }
+
+  /* ─── CRT SCANLINES ─── */
+  .crt-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 9999;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.08) 0px,
+      rgba(0, 0, 0, 0.08) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  }
+
+  /* ─── NEON TEXT ─── */
+  .neon-pink {
+    color: var(--neon-pink);
+    text-shadow: 0 0 7px var(--neon-pink), 0 0 20px var(--neon-pink), 0 0 40px var(--neon-pink);
+  }
+  .neon-cyan {
+    color: var(--neon-cyan);
+    text-shadow: 0 0 7px var(--neon-cyan), 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-cyan);
+  }
+  .neon-green {
+    color: var(--neon-green);
+    text-shadow: 0 0 7px var(--neon-green), 0 0 20px var(--neon-green), 0 0 40px var(--neon-green);
+  }
+  .neon-purple {
+    color: var(--neon-purple);
+    text-shadow: 0 0 7px var(--neon-purple), 0 0 20px var(--neon-purple), 0 0 40px var(--neon-purple);
+  }
+  .neon-yellow {
+    color: var(--neon-yellow);
+    text-shadow: 0 0 7px var(--neon-yellow), 0 0 20px var(--neon-yellow);
+  }
+  .neon-orange {
+    color: var(--neon-orange);
+    text-shadow: 0 0 7px var(--neon-orange), 0 0 20px var(--neon-orange);
+  }
+
+  /* ─── LAYOUT ─── */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ─── HERO SECTION ─── */
+  .hero {
+    text-align: center;
+    padding: 60px 20px 40px;
+  }
+
+  .hero-logo {
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(24px, 5vw, 56px);
+    line-height: 1.4;
+    margin-bottom: 10px;
+    animation: logoPulse 3s ease-in-out infinite;
+  }
+
+  @keyframes logoPulse {
+    0%, 100% { text-shadow: 0 0 10px var(--neon-cyan), 0 0 30px var(--neon-cyan), 0 0 60px var(--neon-cyan), 0 0 100px var(--neon-purple); }
+    50% { text-shadow: 0 0 5px var(--neon-cyan), 0 0 15px var(--neon-cyan), 0 0 30px var(--neon-cyan), 0 0 50px var(--neon-purple); }
+  }
+
+  .hero-sub {
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(10px, 2vw, 16px);
+    letter-spacing: 4px;
+    margin-top: 15px;
+    line-height: 1.8;
+  }
+
+  .hero-tagline {
+    font-size: 28px;
+    margin-top: 30px;
+    font-style: italic;
+    opacity: 0.9;
+  }
+
+  .stat-banner {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin: 40px 0 20px;
+  }
+
+  .stat-box {
+    text-align: center;
+    padding: 20px 30px;
+    border: 1px solid rgba(66, 183, 237, 0.3);
+    background: var(--card-bg);
+    border-radius: 4px;
+    min-width: 180px;
+  }
+
+  .stat-number {
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(20px, 3vw, 36px);
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .stat-label {
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    opacity: 0.7;
+  }
+
+  /* ─── DIVIDER ─── */
+  .divider {
+    height: 2px;
+    margin: 50px auto;
+    max-width: 600px;
+    background: linear-gradient(90deg, transparent, var(--neon-pink), var(--neon-cyan), var(--neon-purple), transparent);
+    border: none;
+  }
+
+  /* ─── SECTION HEADERS ─── */
+  .section-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(14px, 2.5vw, 22px);
+    text-align: center;
+    margin-bottom: 30px;
+    line-height: 1.6;
+  }
+
+  /* ─── INTRO / MARKETING COPY ─── */
+  .intro-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(245, 39, 137, 0.3);
+    border-radius: 8px;
+    padding: 35px;
+    margin: 30px 0;
+    font-size: 22px;
+    line-height: 1.7;
+  }
+
+  .intro-card p { margin-bottom: 18px; }
+  .intro-card p:last-child { margin-bottom: 0; }
+
+  /* ─── SPECS TABLE ─── */
+  .specs-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 20px;
+  }
+
+  .specs-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(66, 183, 237, 0.15);
+    vertical-align: top;
+  }
+
+  .specs-table td:first-child {
+    width: 200px;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 11px;
+    color: var(--neon-cyan);
+    white-space: nowrap;
+    padding-top: 16px;
+  }
+
+  /* ─── FEATURES GRID ─── */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin: 20px 0;
+  }
+
+  .feature-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(216, 10, 252, 0.25);
+    border-radius: 8px;
+    padding: 25px;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+
+  .feature-card:hover {
+    border-color: var(--neon-purple);
+    transform: translateY(-3px);
+  }
+
+  .feature-icon {
+    font-size: 40px;
+    margin-bottom: 12px;
+  }
+
+  .feature-card h3 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 12px;
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+
+  .feature-card p {
+    font-size: 20px;
+    line-height: 1.5;
+    opacity: 0.85;
+  }
+
+  /* ─── SYSTEM LIBRARY ─── */
+  .library-section {
+    margin: 40px 0;
+  }
+
+  .system-category {
+    margin-bottom: 30px;
+  }
+
+  .category-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 13px;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+    border-left: 4px solid;
+    background: rgba(0,0,0,0.3);
+  }
+
+  .system-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 8px;
+  }
+
+  .system-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    background: rgba(10, 5, 30, 0.6);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 4px;
+    font-size: 18px;
+    transition: border-color 0.2s;
+  }
+
+  .system-item:hover {
+    border-color: rgba(66, 183, 237, 0.4);
+  }
+
+  .system-name { flex: 1; }
+
+  .system-count {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    color: var(--neon-green);
+    margin-left: 10px;
+    white-space: nowrap;
+  }
+
+  /* ─── STREAMING TIERS ─── */
+  .tier-card {
+    background: var(--card-bg);
+    border-radius: 8px;
+    padding: 25px;
+    margin: 15px 0;
+    border-left: 4px solid;
+  }
+
+  .tier-card h3 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 12px;
+    margin-bottom: 10px;
+    line-height: 1.5;
+  }
+
+  .tier-card ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .tier-card li {
+    padding: 4px 0;
+    font-size: 20px;
+  }
+
+  .tier-card li::before {
+    content: ">> ";
+    opacity: 0.5;
+  }
+
+  /* ─── DISCLAIMER / FOOTER ─── */
+  .footer {
+    text-align: center;
+    padding: 50px 20px 30px;
+    font-size: 16px;
+    opacity: 0.5;
+    line-height: 1.8;
+  }
+
+  .footer .legal {
+    font-size: 13px;
+    margin-top: 20px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ─── WARRANTY SEAL ─── */
+  .seal {
+    display: inline-block;
+    border: 3px double var(--neon-yellow);
+    border-radius: 50%;
+    width: 160px;
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 30px auto;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 9px;
+    line-height: 1.7;
+    color: var(--neon-yellow);
+    animation: sealSpin 20s linear infinite;
+  }
+
+  @keyframes sealSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .seal-inner {
+    animation: sealSpinReverse 20s linear infinite;
+  }
+
+  @keyframes sealSpinReverse {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(-360deg); }
+  }
+
+  /* ─── BLINK ─── */
+  .blink {
+    animation: blink 1.2s step-start infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: var(--darker-bg); }
+  ::-webkit-scrollbar-thumb { background: var(--neon-purple); border-radius: 4px; }
+
+  /* ─── MARQUEE-STYLE SCROLL TEXT ─── */
+  .ticker-wrap {
+    overflow: hidden;
+    background: rgba(0,0,0,0.5);
+    border-top: 1px solid rgba(245, 39, 137, 0.3);
+    border-bottom: 1px solid rgba(245, 39, 137, 0.3);
+    padding: 8px 0;
+    margin: 30px 0;
+  }
+
+  .ticker {
+    display: inline-block;
+    white-space: nowrap;
+    animation: tickerScroll 40s linear infinite;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+  }
+
+  @keyframes tickerScroll {
+    0% { transform: translateX(100vw); }
+    100% { transform: translateX(-100%); }
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 600px) {
+    .stat-banner { flex-direction: column; align-items: center; }
+    .system-grid { grid-template-columns: 1fr; }
+    .features-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div class="grid-floor"></div>
+<div class="crt-overlay"></div>
+
+<div class="container">
+
+  <!-- ═══════════ HERO ═══════════ -->
+  <section class="hero">
+    <div class="hero-logo neon-cyan">BuxxCo</div>
+    <div class="hero-sub neon-pink">ENTERTAINMENT SYSTEM</div>
+    <div class="hero-sub neon-purple" style="font-size: clamp(8px,1.5vw,12px); margin-top: 8px;">MODEL B-1000 &nbsp;|&nbsp; REVISION 42 &nbsp;|&nbsp; 2026</div>
+
+    <p class="hero-tagline neon-yellow">"Every game. Every system. One box. No excuses."</p>
+
+    <div class="stat-banner">
+      <div class="stat-box">
+        <span class="stat-number neon-green">15,764</span>
+        <span class="stat-label">Games</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-number neon-pink">61</span>
+        <span class="stat-label">Systems</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-number neon-cyan">50+</span>
+        <span class="stat-label">Years of Gaming</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-number neon-purple">1</span>
+        <span class="stat-label">Box</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ TICKER ═══════════ -->
+  <div class="ticker-wrap">
+    <span class="ticker neon-orange">
+      NOW SHIPPING &nbsp;&bull;&nbsp; LIMITED AVAILABILITY &nbsp;&bull;&nbsp; AS SEEN ON NOBODY'S TV &nbsp;&bull;&nbsp; VOTED #1 BY US &nbsp;&bull;&nbsp; "ABSOLUTELY UNHINGED" - THE PRESS &nbsp;&bull;&nbsp; PLAYS MORE GAMES THAN YOUR CHILDHOOD &nbsp;&bull;&nbsp; WARNING: MAY CAUSE NOSTALGIA &nbsp;&bull;&nbsp; CONTROLLER NOT INCLUDED BUT STRONGLY RECOMMENDED &nbsp;&bull;&nbsp; NOW SHIPPING &nbsp;&bull;&nbsp;
+    </span>
+  </div>
+
+  <!-- ═══════════ INTRO ═══════════ -->
+  <div class="intro-card">
+    <p>The year is 2026. You could subscribe to seventeen different services, dig through attics for cartridges that smell like 1994, or spend $400 on a "mini" console that plays 30 games.</p>
+    <p><strong class="neon-cyan">Or you could simply own a BuxxCo.</strong></p>
+    <p>The BuxxCo Entertainment System is a precision-engineered, couch-optimized, controller-driven gaming appliance that consolidates the entire history of interactive entertainment into a single unit roughly the size of a paperback novel. From the Fairchild Channel F (1976) to the Nintendo Wii (2006) &mdash; and everything in between, beside, and adjacent to &mdash; the BuxxCo has it all. Literally. We counted.</p>
+    <p>Fifteen thousand, seven hundred and sixty-four games. <span class="neon-green">No subscription fees. No internet required. No questions asked.</span></p>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ═══════════ HARDWARE SPECS ═══════════ -->
+  <h2 class="section-title neon-cyan">// HARDWARE SPECIFICATIONS</h2>
+
+  <div class="intro-card">
+    <table class="specs-table">
+      <tr>
+        <td>CODENAME</td>
+        <td>KAMRUI GK3PLUS &mdash; re-designated <strong class="neon-yellow">BuxxCo Model B-1000</strong></td>
+      </tr>
+      <tr>
+        <td>CPU</td>
+        <td>Intel Alder Lake N97 &mdash; 4 cores, burst to 3.6 GHz. Enough to make a PS2 sweat and a GameCube nervous.</td>
+      </tr>
+      <tr>
+        <td>GPU</td>
+        <td>Intel UHD Graphics, 24 Execution Units. It won't run Cyberpunk locally, but that's what the streaming is for.</td>
+      </tr>
+      <tr>
+        <td>RAM</td>
+        <td>8 GB DDR4 &mdash; More than every system it emulates, combined, times a hundred.</td>
+      </tr>
+      <tr>
+        <td>STORAGE</td>
+        <td>256 GB SSD &mdash; Currently housing 15,764 games with room to spare. Your move, Steam library.</td>
+      </tr>
+      <tr>
+        <td>OS</td>
+        <td>Batocera Linux v42 &mdash; Boots directly into the game library. No desktop. No updates. No distractions. Just games.</td>
+      </tr>
+      <tr>
+        <td>I/O</td>
+        <td>HDMI out, USB 3.0 (x4), Gigabit Ethernet, Wi-Fi, Bluetooth. Hooks up to any TV manufactured after 2008.</td>
+      </tr>
+      <tr>
+        <td>POWER</td>
+        <td>12V / 2.5A &mdash; 30 watts. Uses less electricity than the lamp next to your TV.</td>
+      </tr>
+      <tr>
+        <td>FORM FACTOR</td>
+        <td>Mini PC. Fits in your hand. Tucks behind the TV. Your guests will never know it's there until you annihilate them at Street Fighter II.</td>
+      </tr>
+      <tr>
+        <td>BIOS</td>
+        <td>Performance-tuned. Throttling disabled. This machine wakes up angry and stays that way.</td>
+      </tr>
+    </table>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ═══════════ CAPABILITIES ═══════════ -->
+  <h2 class="section-title neon-pink">// CAPABILITIES</h2>
+
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">&#x1F3AE;</div>
+      <h3 class="neon-cyan">Retro Emulation</h3>
+      <p>61 systems spanning 1976&ndash;2006. Every cartridge, every disc, every obscure Japanese handheld you've never heard of. Full speed, upscaled, with CRT shaders if you're feeling authentic.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">&#x1F3A8;</div>
+      <h3 class="neon-green">Box Art &amp; Metadata</h3>
+      <p>Every game scraped with professional cover art, descriptions, ratings, and screenshots. Browse your library like a museum of interactive history. Or a very organized crime.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">&#x2601;</div>
+      <h3 class="neon-purple">AAA Game Streaming</h3>
+      <p>Moonlight + Sunshine integration streams any PC game from your gaming rig. Elden Ring on the couch at 1080p60. The BuxxCo doesn't run it &mdash; it commands a bigger machine to do so.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">&#x1F6CB;</div>
+      <h3 class="neon-yellow">Couch Optimized</h3>
+      <p>100% controller-driven. No keyboard needed after setup. Navigate 15,000+ games with a D-pad and two buttons. As nature intended.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">&#x1F4F1;</div>
+      <h3 class="neon-orange">Phone Remote</h3>
+      <p>Built-in web portal. Browse and launch games from your phone on the same Wi-Fi. Be the laziest gamer in the room and feel zero shame about it.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">&#x1F4FA;</div>
+      <h3 class="neon-pink">Media Center</h3>
+      <p>Kodi built in. Netflix, YouTube, Plex, local media. When you're too tired to game, you can watch someone else do it. Or just watch a movie like a normal person.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ═══════════ PERFORMANCE TIERS ═══════════ -->
+  <h2 class="section-title neon-green">// PERFORMANCE CLASSIFICATION</h2>
+
+  <div class="tier-card" style="border-color: var(--neon-green);">
+    <h3 class="neon-green">TIER S &mdash; FLAWLESS (Full Speed + Upscaling)</h3>
+    <ul>
+      <li>NES, SNES, Genesis, Game Boy, GBA, N64, PS1, Dreamcast, PSP</li>
+      <li>Saturn, Sega CD, TurboGrafx, Neo Geo, all Arcade boards</li>
+      <li>Every Atari, every handheld, every 8-bit and 16-bit system ever made</li>
+    </ul>
+  </div>
+
+  <div class="tier-card" style="border-color: var(--neon-yellow);">
+    <h3 class="neon-yellow">TIER A &mdash; EXCELLENT (Minor Tweaks on Demanding Titles)</h3>
+    <ul>
+      <li>GameCube &mdash; 90-99% of library at full speed with upscaling</li>
+      <li>Wii &mdash; Full speed at native resolution for most titles</li>
+      <li>PS2 &mdash; Most games at 2x resolution. God of War may need a gentle talking-to.</li>
+    </ul>
+  </div>
+
+  <div class="tier-card" style="border-color: var(--neon-cyan);">
+    <h3 class="neon-cyan">TIER CLOUD &mdash; STREAMED FROM YOUR PC</h3>
+    <ul>
+      <li>PS3, Wii U, Switch, and any modern PC game</li>
+      <li>Rendered on your gaming PC, streamed to the BuxxCo via Moonlight</li>
+      <li>Requires a gaming PC on the same network. The BuxxCo delegates, not struggles.</li>
+    </ul>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ═══════════ FULL GAME LIBRARY ═══════════ -->
+  <h2 class="section-title neon-purple">// COMPLETE SYSTEM LIBRARY</h2>
+  <p style="text-align:center; margin-bottom:25px; opacity:0.7; font-size:18px;">Every system. Every title count. This is not a flex. This is an inventory.</p>
+
+  <div class="library-section">
+
+    <!-- NINTENDO -->
+    <div class="system-category">
+      <div class="category-title neon-pink" style="border-color: var(--neon-pink);">NINTENDO</div>
+      <div class="system-grid">
+        <div class="system-item"><span class="system-name">NES</span><span class="system-count">1,393</span></div>
+        <div class="system-item"><span class="system-name">Super Nintendo</span><span class="system-count">1,747</span></div>
+        <div class="system-item"><span class="system-name">Nintendo 64</span><span class="system-count">391</span></div>
+        <div class="system-item"><span class="system-name">Game Boy</span><span class="system-count">1,052</span></div>
+        <div class="system-item"><span class="system-name">Game Boy Color</span><span class="system-count">929</span></div>
+        <div class="system-item"><span class="system-name">Game Boy Advance</span><span class="system-count">1,544</span></div>
+        <div class="system-item"><span class="system-name">Famicom Disk System</span><span class="system-count">201</span></div>
+        <div class="system-item"><span class="system-name">Virtual Boy</span><span class="system-count">23</span></div>
+        <div class="system-item"><span class="system-name">Pokemon Mini</span><span class="system-count">17</span></div>
+        <div class="system-item"><span class="system-name">Satellaview</span><span class="system-count">213</span></div>
+        <div class="system-item"><span class="system-name">Sufami Turbo</span><span class="system-count">14</span></div>
+        <div class="system-item"><span class="system-name">Game &amp; Watch</span><span class="system-count">13</span></div>
+        <div class="system-item"><span class="system-name">Nintendo DSi</span><span class="system-count">262</span></div>
+      </div>
+    </div>
+
+    <!-- SEGA -->
+    <div class="system-category">
+      <div class="category-title neon-cyan" style="border-color: var(--neon-cyan);">SEGA</div>
+      <div class="system-grid">
+        <div class="system-item"><span class="system-name">Mega Drive / Genesis</span><span class="system-count">934</span></div>
+        <div class="system-item"><span class="system-name">Master System</span><span class="system-count">337</span></div>
+        <div class="system-item"><span class="system-name">Game Gear</span><span class="system-count">367</span></div>
+        <div class="system-item"><span class="system-name">32X</span><span class="system-count">35</span></div>
+        <div class="system-item"><span class="system-name">SG-1000</span><span class="system-count">75</span></div>
+        <div class="system-item"><span class="system-name">Sega PICO</span><span class="system-count">328</span></div>
+      </div>
+    </div>
+
+    <!-- ATARI -->
+    <div class="system-category">
+      <div class="category-title neon-orange" style="border-color: var(--neon-orange);">ATARI</div>
+      <div class="system-grid">
+        <div class="system-item"><span class="system-name">Atari 2600</span><span class="system-count">483</span></div>
+        <div class="system-item"><span class="system-name">Atari 5200</span><span class="system-count">72</span></div>
+        <div class="system-item"><span class="system-name">Atari 7800</span><span class="system-count">60</span></div>
+        <div class="system-item"><span class="system-name">Atari Lynx</span><span class="system-count">75</span></div>
+        <div class="system-item"><span class="system-name">Atari ST</span><span class="system-count">315</span></div>
+        <div class="system-item"><span class="system-name">Atari Jaguar</span><span class="system-count">47</span></div>
+      </div>
+    </div>
+
+    <!-- NEC -->
+    <div class="system-category">
+      <div class="category-title neon-green" style="border-color: var(--neon-green);">NEC</div>
+      <div class="system-grid">
+        <div class="system-item"><span class="system-name">TurboGrafx-16 / PC Engine</span><span class="system-count">298</span></div>
+        <div class="system-item"><span class="system-name">SuperGrafx</span><span class="system-count">6</span></div>
+        <div class="system-item"><span class="system-name">PC-98</span><span class="system-count">23</span></div>
+      </div>
+    </div>
+
+    <!-- SNK -->
+    <div class="system-category">
+      <div class="category-title neon-yellow" style="border-color: var(--neon-yellow);">SNK</div>
+      <div class="system-grid">
+        <div class="system-item"><span class="system-name">Neo Geo Pocket</span><span class="system-count">10</span></div>
+        <div class="system-item"><span class="system-name">Neo Geo Pocket Color</span><span class="system-count">74</span></div>
+      </div>
+    </div>
+
+    <!-- BANDAI -->
+    <div class="system-category">
+      <div class="category-title neon-purple" style="border-color: var(--neon-purple);">BANDAI</div>
+      <div class="system-grid">
+        <div class="system-item"><span class="system-name">WonderSwan</span><span class="system-count">112</span></div>
+        <div class="system-item"><span class="system-name">WonderSwan Color</span><span class="system-count">92</span></div>
+      </div>
+    </div>
+
+    <!-- COMMODORE -->
+    <div class="system-category">
+      <div class="category-title neon-pink" style="border-color: var(--neon-pink);">COMMODORE</div>
+      <div class="system-grid">
+        <div class="system-item"><span class="system-name">Amiga</span><span class="system-count">2,760</span></div>
+        <div class="system-item"><span class="system-name">Commodore 64</span><span class="system-count">231</span></div>
+        <div class="system-item"><span class="system-name">VIC-20</span><span class="system-count">174</span></div>
+        <div class="system-item"><span class="system-name">Plus/4</span><span class="system-count">6</span></div>
+      </div>
+    </div>
+
+    <!-- MICROSOFT / HOME COMPUTERS -->
+    <div class="system-category">
+      <div class="category-title neon-cyan" style="border-color: var(--neon-cyan);">HOME COMPUTERS</div>
+      <div class="system-grid">
+        <div class="system-item"><span class="system-name">MSX</span><span class="system-count">546</span></div>
+        <div class="system-item"><span class="system-name">MSX2</span><span class="system-count">150</span></div>
+        <div class="system-item"><span class="system-name">Amstrad CPC</span><span class="system-count">2</span></div>
+        <div class="system-item"><span class="system-name">ZX Spectrum</span><span class="system-count">128</span></div>
+      </div>
+    </div>
+
+    <!-- CLASSIC / OBSCURE -->
+    <div class="system-category">
+      <div class="category-title neon-orange" style="border-color: var(--neon-orange);">THE DEEP CUTS</div>
+      <div class="system-grid">
+        <div class="system-item"><span class="system-name">ColecoVision</span><span class="system-count">140</span></div>
+        <div class="system-item"><span class="system-name">Intellivision</span><span class="system-count">145</span></div>
+        <div class="system-item"><span class="system-name">Vectrex</span><span class="system-count">30</span></div>
+        <div class="system-item"><span class="system-name">Channel F</span><span class="system-count">28</span></div>
+        <div class="system-item"><span class="system-name">Odyssey 2</span><span class="system-count">76</span></div>
+        <div class="system-item"><span class="system-name">Videopac+</span><span class="system-count">25</span></div>
+        <div class="system-item"><span class="system-name">Arcadia 2001</span><span class="system-count">49</span></div>
+        <div class="system-item"><span class="system-name">VC 4000</span><span class="system-count">58</span></div>
+        <div class="system-item"><span class="system-name">Adventure Vision</span><span class="system-count">5</span></div>
+        <div class="system-item"><span class="system-name">Supervision</span><span class="system-count">66</span></div>
+        <div class="system-item"><span class="system-name">Mega Duck</span><span class="system-count">25</span></div>
+        <div class="system-item"><span class="system-name">Game Master</span><span class="system-count">19</span></div>
+        <div class="system-item"><span class="system-name">Gamate</span><span class="system-count">62</span></div>
+        <div class="system-item"><span class="system-name">Game Pocket Computer</span><span class="system-count">6</span></div>
+        <div class="system-item"><span class="system-name">PV-1000</span><span class="system-count">14</span></div>
+        <div class="system-item"><span class="system-name">Super Cassette Vision</span><span class="system-count">31</span></div>
+        <div class="system-item"><span class="system-name">Game.com</span><span class="system-count">23</span></div>
+        <div class="system-item"><span class="system-name">CreatiVision</span><span class="system-count">18</span></div>
+        <div class="system-item"><span class="system-name">V.Smile</span><span class="system-count">63</span></div>
+        <div class="system-item"><span class="system-name">Arduboy</span><span class="system-count">425</span></div>
+        <div class="system-item"><span class="system-name">GP32</span><span class="system-count">22</span></div>
+        <div class="system-item"><span class="system-name">My Vision</span><span class="system-count">5</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <hr class="divider">
+
+  <!-- ═══════════ WHAT'S IN THE BOX ═══════════ -->
+  <h2 class="section-title neon-yellow">// WHAT'S IN THE BOX</h2>
+
+  <div class="intro-card" style="border-color: rgba(240, 232, 77, 0.3);">
+    <table class="specs-table">
+      <tr>
+        <td>THE BOX</td>
+        <td>One (1) BuxxCo Entertainment System, pre-loaded, pre-configured, ready to connect to any HDMI television and immediately ruin your productivity.</td>
+      </tr>
+      <tr>
+        <td>GAMES</td>
+        <td>15,764 titles across 61 platforms, spanning from the dawn of electronic entertainment (1976) to the height of the sixth console generation (2006). Curated 1G1R sets &mdash; one game, one region, no duplicates, no filler.</td>
+      </tr>
+      <tr>
+        <td>INTERFACE</td>
+        <td>EmulationStation frontend with full box art, descriptions, and metadata for every title. Navigated entirely by controller. Organized by system. Searchable. Beautiful.</td>
+      </tr>
+      <tr>
+        <td>STREAMING</td>
+        <td>Moonlight game streaming pre-configured. Pair it with any gaming PC running Sunshine and play your entire Steam library on the TV. Controller in hand. No wires to the PC.</td>
+      </tr>
+      <tr>
+        <td>MEDIA</td>
+        <td>Kodi media center for when you need a break. Netflix, YouTube, local media, IPTV. It's a whole entertainment center that fits behind your TV.</td>
+      </tr>
+      <tr>
+        <td>CONTROLLER</td>
+        <td>Not included. We recommend the 8BitDo Ultimate 2C (~$25). Pairs via Bluetooth. Works out of the box. Feels like the controller you always wanted as a kid.</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- ═══════════ WARRANTY SEAL ═══════════ -->
+  <div class="seal">
+    <div class="seal-inner">
+      BUXXCO<br>CERTIFIED<br>QUALITY<br>&#9733; 2026 &#9733;
+    </div>
+  </div>
+
+  <!-- ═══════════ CLOSING ═══════════ -->
+  <div class="intro-card" style="text-align: center; border-color: rgba(57, 255, 20, 0.3);">
+    <p style="font-family: 'Press Start 2P', monospace; font-size: clamp(11px, 2vw, 16px); line-height: 2;" class="neon-green">STOP PAYING FOR THE PAST.</p>
+    <p style="font-family: 'Press Start 2P', monospace; font-size: clamp(11px, 2vw, 16px); line-height: 2;" class="neon-pink">START PLAYING IT.</p>
+    <br>
+    <p style="font-size: 24px;">The BuxxCo Entertainment System. <br>Fifty years of gaming. One HDMI cable. Zero regrets.</p>
+    <br>
+    <p class="blink neon-yellow" style="font-family: 'Press Start 2P', monospace; font-size: 14px;">PRESS START</p>
+  </div>
+
+  <!-- ═══════════ FOOTER ═══════════ -->
+  <div class="footer">
+    <p>BuxxCo Entertainment Systems &mdash; A Division of BuxxCo Industries Worldwide</p>
+    <p class="legal">BuxxCo is not responsible for: lost weekends, neglected responsibilities, arguments over who gets to play next, the realization that you were never actually good at Battletoads, or any existential crises triggered by revisiting your childhood. The BuxxCo Entertainment System is provided as-is, where-is, and absolutely how-it-is. No refunds. No returns. No looking back. BuxxCo&trade; 2026. All rights reserved. Some wrongs reserved too.</p>
+  </div>
+
+</div>
+
+</body>
+</html>
